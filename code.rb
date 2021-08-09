@@ -10,15 +10,16 @@ class Code
       @code = array
     end
     if !self.valid?
-      puts "invalid code try again!"
+      Output.invalid
+      Input.code_input
     end
   end
   def valid?
-    if @code.length == 4 && !@code.any?(0)
+    if @code.length == 4 && !@code.any?{ |num| (num < 1 || num > 6) }
       true
     else
       false
     end
   end
 end
-code = Code.new(gets.chomp.split('').map{ |item| item.to_i })
+
