@@ -9,11 +9,8 @@ class Code
     else
       @code = array
     end
-    if !self.valid?
-      Output.invalid
-      Input.code_input
-    end
   end
+
   def valid?
     if @code.length == 4 && !@code.any?{ |num| (num < 1 || num > 6) }
       true
