@@ -1,10 +1,11 @@
 class Code
   attr_reader :code
-  def initialize(array=nil)
-    if array == nil
+
+  def initialize(array = nil)
+    if array.nil?
       @code = []
       4.times do
-        @code << (rand(5) + 1)
+        @code << (rand(1..6))
       end
     else
       @code = array
@@ -12,11 +13,10 @@ class Code
   end
 
   def valid?
-    if @code.length == 4 && !@code.any?{ |num| (num < 1 || num > 6) }
+    if @code.length == 4 && @code.none? { |num| (num < 1 || num > 6) }
       true
     else
       false
     end
   end
 end
-

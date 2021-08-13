@@ -3,14 +3,15 @@ class Output
     string = ''
     array.reverse!
     4.times do
-      string += color_choice(array.pop().to_s)
+      string += "  #{color_choice(array.pop.to_s)}"
     end
     string
   end
 
   def self.guess(array)
-    puts "\nYou guessed #{self.color(array)}"
+    puts "\nYou guessed\n #{self.color(array)}"
   end
+
   def self.color_choice(string)
     case string
     when '1'
@@ -27,15 +28,21 @@ class Output
       string.black.on_yellow
     end
   end
+
   def self.invalid
-    "\nInvalid input! please enter 4 numbers between 1 and 6, with no spaces!\n\n"
+    puts "\nInvalid input! please enter 4 numbers between 1 and 6, with no spaces!\n\n"
   end
 
   def self.start
-    "\nWelcome to Mastermind!\n\n"
+    puts "\nWelcome to Mastermind!\nWould you like to play as the\n1.Codemaker?\n2.Codebreaker?"
   end
+
   def self.prompt
-    'Enter a code!'
+    puts 'Enter a code!'
+  end
+
+  def self.codebreaker
+    puts 'As the codebreaker you will have to guess the code that the computer has made, you have 12 chances. Good luck!'
   end
 end
 
@@ -43,5 +50,9 @@ class Input
   def self.code_input
     puts Output.prompt
     Code.new(gets.chomp.split('').map{ |item| item.to_i })
+  end
+  def self.game_choice
+    puts 'Enter your selection! (either 1, or 2)'
+    gets.chomp
   end
 end
