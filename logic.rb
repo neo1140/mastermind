@@ -20,7 +20,6 @@ class Game
   end
 
   def guess(guess)
-    p guess
     @guess = guess
     @guesses += 1
     if !@guess.valid?
@@ -28,24 +27,38 @@ class Game
       Output.invalid
       guess(Input.code_input)
     elsif win?
-      puts "\nCongratulations! You've won!! the code was #{Output.color(@secretcode)}\n\n"
-      @game_over = true
+      correct_guess
     elsif lose?
-      puts "\nYou lose :( the secret code was #{Output.color(@secretcode)}\n\n"
-      @game_over = true
+      last_guess
     else
       wrong_guess
     end
   end
 
   def win?
-    false
     true if @guess.code == @secretcode
   end
 
   def lose?
-    false
     true if @guesses >= 12
+  end
+
+  def correct_guess
+    if @game_type == 'maker'
+      puts "\nYou lost :( the computer guessed your secret code :#{Output.color(@secretcode)}\n\n"
+    else
+      puts "\nCongratulations! You've won!! the code was #{Output.color(@secretcode)}\n\n"
+    end
+    @game_over = true
+  end
+
+  def last_guess
+    if @game_type == 'breaker'
+      puts "\nYou lose :( the secret code was #{Output.color(@secretcode)}\n\n"
+    else
+      puts "\nYou win!! the computer couldn't guess your secret code :#{Output.color(@secretcode)}\n\n"
+    end
+    @game_over = true
   end
 
   def wrong_guess
@@ -54,9 +67,7 @@ class Game
     guess_array = []
     @guess.code.each { |num| guess_array << num }
     @secretcode.each_with_index do |num, index|
-      if num == @guess.code[index]
-        @@correct_numbers += 1
-      end
+      @@correct_numbers += 1 if num == @guess.code[index]
     end
     @secretcode.each do |num|
       if guess_array.include?(num)
@@ -65,10 +76,10 @@ class Game
         @guess.code
       end
     end
-    Output.guess(@guess.code)
-    puts "You've guessed #{@guesses} times! you have #{12 - @guesses} left!!"
-    puts "Your guess included #{@@close_numbers - @@correct_numbers} of the numbers included in the code, but in the wrong position!"
-    puts "Your guess included #{@@correct_numbers} of the correct numbers in the correct position!\n\n"
+    Output.guess(@guess.code, @game_type)
+    puts "Guess ##{@guesses}! #{12 - @guesses} left!!"
+    puts "The guess included #{@@close_numbers - @@correct_numbers} of the numbers included in the code, but in the wrong position!"
+    puts "The guess included #{@@correct_numbers} of the correct numbers in the correct position!\n\n"
 
   end
 end

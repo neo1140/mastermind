@@ -8,8 +8,12 @@ class Output
     string
   end
 
-  def self.guess(array)
-    puts "\nYou guessed\n #{self.color(array)}"
+  def self.guess(array, game_type)
+    if game_type == 'breaker'
+      puts "\nYou guessed\n #{self.color(array)}"
+    else
+      puts "\nThe computer guessed\n #{self.color(array)}"
+    end
   end
 
   def self.color_choice(string)
@@ -43,6 +47,10 @@ class Output
 
   def self.codebreaker
     puts 'As the codebreaker you will have to guess the code that the computer has made, you have 12 chances. Good luck!'
+  end
+
+  def self.codemaker
+    puts 'As the codemaker you will make a code, and the computer will have 12 tries to guess it. Good luck!'
   end
 end
 
