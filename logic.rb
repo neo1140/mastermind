@@ -1,6 +1,6 @@
 # class containing game logic
 class Game
-  attr_reader :game_over
+  attr_reader :game_over, :guesses
 
   def initialize(code, game_type)
     @game_type = game_type
@@ -40,7 +40,7 @@ class Game
   end
 
   def lose?
-    true if @guesses >= 12
+    true if @guesses >= 120
   end
 
   def correct_guess

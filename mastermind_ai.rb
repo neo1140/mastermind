@@ -14,7 +14,7 @@ class MastermindAI
     @@array.each do |group|
       include_count = find_close(group, last_guess)
       match = find_correct(group, last_guess)
-      @@array.delete(group) if include_count != close_numbers && match != correct_numbers
+      @@array.delete(group) if (include_count - match) != (close_numbers - correct_numbers) || match != correct_numbers
     end
   end
 
@@ -28,7 +28,19 @@ class MastermindAI
 
   def cleanup
     @@array.reject!(&:empty?)
-    p @@array
+    @@array.sort! do |group1, group2|
+      group1_value = 0
+      group2_value = 0
+     # @@array.each do |comp|
+     #   group1.each_with_index { |num, index| group1_value += 1 if comp[index] == num || comp.include?(num) }
+     #   group2.each_with_index { |num, index| group2_value += 1 if comp[index] == num || comp.include?(num) }
+     # end
+      if group2_value < group1_value
+        group2 <=> group1
+      else
+        group1 <=> group2
+      end
+    end
   end
 
   def self.find_close(group, last_guess)
@@ -44,8 +56,14 @@ class MastermindAI
     include_count
   end
 
-  def comp_guess
-    Code.new(@@array.sample)
+  def comp_guess(guesses)
+    if guesses == 0
+      Code.new([1, 1, 2, 2])
+    elsif guesses < 6
+      Code.new(@@array[0])
+    else
+      Code.new(@@array.sample)
+    end
   end
 end
   # def comp_guess
