@@ -44,6 +44,7 @@ class Game
   end
 
   def correct_guess
+    Output.guess(@guess.code, @game_type)
     if @game_type == 'maker'
       puts "\nYou lost :( the computer guessed your secret code :#{Output.color(@secretcode)}\n\n"
     else
@@ -53,6 +54,7 @@ class Game
   end
 
   def last_guess
+    Output.guess(@guess.code, @game_type)
     if @game_type == 'breaker'
       puts "\nYou lose :( the secret code was #{Output.color(@secretcode)}\n\n"
     else
@@ -76,10 +78,10 @@ class Game
         @guess.code
       end
     end
+    MastermindAI.a_i_update(@@correct_numbers, @@close_numbers, @guess.code) if @game_type == 'maker'
     Output.guess(@guess.code, @game_type)
     puts "Guess ##{@guesses}! #{12 - @guesses} left!!"
     puts "The guess included #{@@close_numbers - @@correct_numbers} of the numbers included in the code, but in the wrong position!"
     puts "The guess included #{@@correct_numbers} of the correct numbers in the correct position!\n\n"
-
   end
 end

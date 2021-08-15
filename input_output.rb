@@ -10,9 +10,9 @@ class Output
 
   def self.guess(array, game_type)
     if game_type == 'breaker'
-      puts "\nYou guessed\n #{self.color(array)}"
+      puts "\nYou guessed\n #{color(array)}"
     else
-      puts "\nThe computer guessed\n #{self.color(array)}"
+      puts "\nThe computer guessed\n #{color(array)}"
     end
   end
 
@@ -57,8 +57,9 @@ end
 class Input
   def self.code_input
     puts Output.prompt
-    Code.new(gets.chomp.split('').map{ |item| item.to_i })
+    Code.new(gets.chomp.split('').map(&:to_i))
   end
+
   def self.game_choice
     puts 'Enter your selection! (either 1, or 2)'
     gets.chomp

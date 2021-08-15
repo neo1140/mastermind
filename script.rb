@@ -26,6 +26,7 @@ class GameTree
     a_i = MastermindAI.new
     until game.game_over == true
       game.guess(a_i.comp_guess)
+      a_i.cleanup
       puts 'Hit ENTER to continue'
       gets.chomp
     end
