@@ -1,4 +1,7 @@
+# Class containing outputs to the user
 class Output
+
+  # Method for coloring the elements of a guess
   def self.color(array)
     string = ''
     array.reverse!
@@ -8,6 +11,7 @@ class Output
     string
   end
 
+  # Method that outputs a guess after color coding it
   def self.guess(array, game_type)
     if game_type == 'breaker'
       puts "\nYou guessed\n #{color(array)}"
@@ -16,6 +20,7 @@ class Output
     end
   end
 
+  # Color codes guess codes
   def self.color_choice(string)
     case string
     when '1'
@@ -33,6 +38,7 @@ class Output
     end
   end
 
+  # Just some simple outputs that are used in multiple places
   def self.invalid
     puts "\nInvalid input! please enter 4 numbers between 1 and 6, with no spaces!\n\n"
   end
@@ -54,6 +60,7 @@ class Output
   end
 end
 
+# Class that is called to take user input
 class Input
   def self.code_input
     puts Output.prompt

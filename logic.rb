@@ -2,6 +2,7 @@
 class Game
   attr_reader :game_over, :guesses
 
+  # Initialize a new game with default state
   def initialize(code, game_type)
     @game_type = game_type
     @guesses = 0
@@ -19,6 +20,7 @@ class Game
     @@close_numbers
   end
 
+  # Method for checking if a guess is correct, and if the game is over do to running out of guesses
   def guess(guess)
     @guess = guess
     @guesses += 1
@@ -35,14 +37,17 @@ class Game
     end
   end
 
+  # Method for win checking
   def win?
     true if @guess.code == @secretcode
   end
 
+  # Method for lose checking
   def lose?
-    true if @guesses >= 120
+    true if @guesses >= 12
   end
 
+  # Method that changes the game state to over, and outputs to the user when the code is guessed correctly
   def correct_guess
     Output.guess(@guess.code, @game_type)
     if @game_type == 'maker'
@@ -53,6 +58,7 @@ class Game
     @game_over = true
   end
 
+  # Method that changes the game state to over, and outputs to the user when the guesser has run out of guesses
   def last_guess
     Output.guess(@guess.code, @game_type)
     if @game_type == 'breaker'
@@ -63,6 +69,7 @@ class Game
     @game_over = true
   end
 
+  # Method that evaluates an incorrect guess to give feedback on how close to correct a guess was
   def wrong_guess
     @@correct_numbers = 0
     @@close_numbers = 0

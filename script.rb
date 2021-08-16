@@ -3,7 +3,11 @@ require_relative 'input_output'
 require_relative 'logic'
 require 'colorize'
 require_relative 'mastermind_ai'
+
+# Class that contains the decisions the player will make during the game
 class GameTree
+
+  # Method for the main game loop in which the player will choose to guess the code or make the code
   def self.game_loop
     Output.start
     game_choice = nil
@@ -15,6 +19,7 @@ class GameTree
     end
   end
 
+  # Method that lets the player make a code for the computer to guess
   def self.codemaker
     Output.codemaker
     code = Input.code_input
@@ -34,6 +39,7 @@ class GameTree
     game_end
   end
 
+  # Method that loops until the player guesses the code correctly, or runs out of chances
   def self.codebreaker
     Output.codebreaker
     code = Code.new
@@ -42,6 +48,7 @@ class GameTree
     game_end
   end
 
+  # Method for ending the game and giving the option to play again
   def self.game_end
     puts "Would you like to play again? enter 'Y' if you do!"
     if gets.chomp.upcase == 'Y'
@@ -51,4 +58,6 @@ class GameTree
     end
   end
 end
+
+# Calls game_loop method, starting the program
 GameTree.game_loop
