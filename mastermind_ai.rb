@@ -1,6 +1,7 @@
 # Class that contains the logic for the AI
 class MastermindAI
   def initialize
+    @@possible_codes = []
     @guesses = 0
     @correct_numbers = []
     @@array = []
@@ -8,6 +9,7 @@ class MastermindAI
       next if num.to_s.include?('0') || num.to_s.include?('7') || num.to_s.include?('8') || num.to_s.include?('9')
 
       @@array << num.to_s.split('').map(&:to_i)
+      @@possible_codes << num.to_s.split('').map(&:to_i)
     end
   end
 
@@ -31,21 +33,23 @@ class MastermindAI
 
   # Method that removes empty elements from the array,
   # in the future would like to make it sort the array so that the computers best play is in position 0
+  # Commented out the sorting, it doesn't improve the computers ability to guess the code, and it's slow
   def cleanup
-    @@array.reject!(&:empty?)
-    @@array.sort! do |group1, group2|
-      group1_value = 0
-      group2_value = 0
-     # @@array.each do |comp|
-     #   group1.each_with_index { |num, index| group1_value += 1 if comp[index] == num || comp.include?(num) }
-     #   group2.each_with_index { |num, index| group2_value += 1 if comp[index] == num || comp.include?(num) }
-     # end
-      if group2_value < group1_value
-        group2 <=> group1
-      else
-        group1 <=> group2
-      end
-    end
+    # @@array.reject!(&:empty?)
+    @@possible_codes.reject!(&:empty?)
+    # @@possible_codes.sort! do |group1, group2|
+      # group1_value = 0
+      # group2_value = 0
+      # @@array.each do |comp|
+      #  group1.each_with_index { |num, index| group1_value += 1 if comp[index] == num || comp.include?(num) }
+      #  group2.each_with_index { |num, index| group2_value += 1 if comp[index] == num || comp.include?(num) }
+      # end
+      # if group2_value < group1_value
+      #  group2 <=> group1
+      # else
+      # group1 <=> group2
+      # end
+    # end
   end
 
   # Method that finds the number of common numbers between the last guess and all remaining possible guesses
